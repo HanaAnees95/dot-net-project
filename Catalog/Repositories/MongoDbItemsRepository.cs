@@ -1,9 +1,12 @@
-
+using Microsoft.AspNetCore.Mvc;
 
 using System;
 using System.Collections.Generic;
 using Catalog.Entities;
 using MongoDB.Driver;
+
+
+
 
 namespace Catalog.Repositories
 {
@@ -22,7 +25,7 @@ namespace Catalog.Repositories
         }
         public void CreateItem(Item item)
         {
-            throw new NotImplementedException();
+           itemsCollection.InsertOne(item);
         }
 
         public void DeleteItem(Guid id)
