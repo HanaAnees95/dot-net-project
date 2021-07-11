@@ -16,6 +16,8 @@ namespace Catalog.Repositories
 
         private readonly IMongoCollection<Item> itemsCollection;
 
+        private readonly FilterDefinitionBuilder<Item> filterBuilder = Builders<Item>.Filter;
+
         public MongoDbItemsRepository(IMongoClient mongoClient)
         {
            IMongoDatabase database = mongoClient.GetDatabase(databaseName); 
@@ -33,7 +35,8 @@ namespace Catalog.Repositories
 
         public Item GetItem(Guid id)
         {
-            throw new NotImplementedException();
+            var filter = filterBuilder.Eq(item => item.Id, id);
+            return itemsCollection.Find(filter).SingleOrDefault();
         }
 
         public IEnumerable<Item> GetItems()
